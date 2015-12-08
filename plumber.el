@@ -33,11 +33,11 @@
 
 (defun plumber-display-by-message (start end content)
   "display by message"
-  (message "%s" content))
+  (message content))
 
 (defun plumber-display-by-tooltip (start end content)
   "display by tooltip"
-  (tooltip-show (format "%s" content)))
+  (tooltip-show content))
 
 (defun plumber-display-by-overlay (start end content)
   "display by overlay"
