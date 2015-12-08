@@ -11,11 +11,11 @@
                  (const overlay)))
 
 (defcustom plumber-config-alist nil
-  "The format of element is like (regexp translater-function keybinding)")
+  "The format of element is like (regexp keybinding translater-function)")
 
 (defun plumber--match-p (content rule)
   (let ((pattern (first rule))
-        (keybinding (third rule)))
+        (keybinding (second rule)))
     (and (string-match-p pattern content)
          (or (null keybinding)
              (equal keybinding (this-command-keys))
@@ -27,7 +27,7 @@
   (let* ((content (buffer-substring-no-properties start end))
          (config (cl-find-if (lambda (rule)
                                (plumber--match-p content rule))  plumber-config-alist))
-         (translater (second config))
+         (translater (third config))
          (show-function (intern (format "plumber-display-by-%s" plumber-show-type))))
     (funcall show-function start end (funcall translater content))))
 
